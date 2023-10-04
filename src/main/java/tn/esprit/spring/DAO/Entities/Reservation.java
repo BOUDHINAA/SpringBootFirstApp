@@ -19,4 +19,7 @@ private String idReservation;
     private Date anneeUniversitaire;
 @Column(name = "estValide")
     private Boolean estValide;
+
+    @ManyToMany(mappedBy = "reservations")
+    private Set<Etudiant> etudiants;
 }

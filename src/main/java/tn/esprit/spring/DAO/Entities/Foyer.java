@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Table(name="Foyer")
 @Entity
 @Setter
@@ -19,6 +21,10 @@ public class Foyer {
     @Column(name = "capaciteFoyer")
     private long capacite;
 
+    @OneToOne(cascade = CascadeType.ALL,mappedBy = "universite")
+    private Foyer foyer;
 
+    @OneToMany(mappedBy = "foyer", cascade = CascadeType.ALL)
+    private Set<Bloc> blocs;
 
 }
