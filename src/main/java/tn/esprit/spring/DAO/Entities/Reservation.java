@@ -20,6 +20,16 @@ private String idReservation;
 @Column(name = "estValide")
     private Boolean estValide;
 
-    @ManyToMany(mappedBy = "reservations")
+    @ManyToMany()
     private Set<Etudiant> etudiants;
+    @ManyToOne(optional = false)
+    private Chambre chambres;
+
+    public Chambre getChambres() {
+        return chambres;
+    }
+
+    public void setChambres(Chambre chambres) {
+        this.chambres = chambres;
+    }
 }

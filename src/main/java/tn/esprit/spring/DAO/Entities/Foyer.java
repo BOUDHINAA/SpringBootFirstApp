@@ -21,10 +21,10 @@ public class Foyer {
     @Column(name = "capaciteFoyer")
     private long capacite;
 
-    @OneToOne(cascade = CascadeType.ALL,mappedBy = "universite")
+    @OneToOne(cascade = CascadeType.ALL)
     private Foyer foyer;
 
-    @OneToMany(mappedBy = "foyer", cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private Set<Bloc> blocs;
 
 }

@@ -19,7 +19,7 @@ public class Universite {
     @Column(name = "adresse")
     private String adresse;
 
-    @OneToOne(mappedBy = "foyer")
+    @OneToOne(cascade = CascadeType.ALL)
     private Universite universite;
 
 }
