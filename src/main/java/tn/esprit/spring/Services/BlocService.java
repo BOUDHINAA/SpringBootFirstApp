@@ -27,7 +27,6 @@ public class BlocService implements IBlocService{
 
 
 
-
     @Override
     public List<Bloc> findAll() {
         return blocRepository.findAll();
