@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import tn.esprit.spring.DAO.Entities.Etudiant;
 import tn.esprit.spring.DAO.Repository.EtudiantRepository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,5 +48,35 @@ public class EtudiantService implements IEtudiantService{
     @Override
     public void delete(Etudiant e) {
         etudiantRepository.delete(e);
+    }
+
+    @Override
+    public List<Etudiant> findByNomETAndPrenomEt(String nomET, String prenomEt) {
+        return etudiantRepository.findByNomETAndPrenomEt(nomET, prenomEt);
+    }
+
+    @Override
+    public List<Etudiant> findByCin(long cin) {
+        return etudiantRepository.findByCin(cin);
+    }
+
+    @Override
+    public List<Etudiant> findByDateNaissanceAfter(Date date) {
+        return etudiantRepository.findByDateNaissanceAfter(date);
+    }
+
+    @Override
+    public List<Etudiant> findByEcole(String ecole) {
+        return etudiantRepository.findByEcole(ecole);
+    }
+
+    @Override
+    public List<Etudiant> findByReservationsId(long reservationId) {
+        return etudiantRepository.findByReservationsId(reservationId);
+    }
+
+    @Override
+    public List<Etudiant> findByReservationsAnnee(int annee) {
+        return etudiantRepository.findByReservationsAnnee(annee);
     }
 }

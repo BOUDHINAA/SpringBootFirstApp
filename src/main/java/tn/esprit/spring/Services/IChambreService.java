@@ -2,7 +2,9 @@ package tn.esprit.spring.Services;
 
 
 import org.springframework.stereotype.Service;
+import tn.esprit.spring.DAO.Entities.Bloc;
 import tn.esprit.spring.DAO.Entities.Chambre;
+import tn.esprit.spring.DAO.Entities.TypeChambre;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +24,18 @@ public interface IChambreService {
     void deleteById(Long id);
 
     void delete(Chambre b);
+
+    List<Chambre> findByNumChambre(long numChambre);
+
+    List<Chambre> findByTypeC(TypeChambre typeC);
+
+    List<Chambre> findByBloc(Bloc bloc);
+
+    List<Chambre> findByBlocAndTypeC(Bloc bloc, TypeChambre typeC);
+
+    List<Chambre> findByNumChambreAndTypeC(long numChambre, TypeChambre typeC);
+
+    List<Chambre> findByBlocFoyerUniversite(String universite);
 
 }
 

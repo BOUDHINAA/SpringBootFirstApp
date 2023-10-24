@@ -25,29 +25,36 @@ public class BlocRestController {
         return iBlocService.addBloc(b);
     }
     @GetMapping("/findBlocById/{id}")
-    ResponseEntity<Bloc> getBlocById(@PathVariable Long id) {
+    Bloc getBlocById(@PathVariable Long id) {
         Bloc bloc = iBlocService.findById(id);
 
         if (bloc != null) {
-            return ResponseEntity.ok(bloc);
+            return bloc;
         } else {
-            return ResponseEntity.notFound().build();
+            Bloc defaultBloc = new Bloc();
+            defaultBloc.setNomBloc("Introuvable");
+            defaultBloc.setCapacite(0);
+            return defaultBloc;
         }
     }
     @PutMapping("/editBloc/{id}")
-    ResponseEntity<Bloc> editBloc(@PathVariable("id") Long id, @RequestBody Bloc updatedBloc) {
-        Optional<Bloc> existingBlocOptional = Optional.ofNullable(iBlocService.findById(id));
 
-        if (existingBlocOptional.isPresent()) {
-            Bloc existingBloc = existingBlocOptional.get();
+    Bloc editBloc(@PathVariable("id") Long id, @RequestBody Bloc updatedBloc) {
+        Bloc existingBloc = iBlocService.findById(id);
+
+        if (existingBloc != null) {
             existingBloc.setNomBloc(updatedBloc.getNomBloc());
             existingBloc.setCapacite(updatedBloc.getCapacite());
-            Bloc savedBloc = iBlocService.editBloc(existingBloc);
-            return ResponseEntity.ok(savedBloc);
-        } else {
-            return ResponseEntity.notFound().build();
+            return iBlocService.editBloc(existingBloc);
         }
+
+        Bloc defaultBloc = new Bloc();
+        defaultBloc.setNomBloc("Introuvable");
+        defaultBloc.setCapacite(0);
+
+        return defaultBloc;
     }
+
     @DeleteMapping("/deleteBloc/{id}")
     ResponseEntity<Void> deleteBloc(@PathVariable Long id) {
         Bloc existingBloc = iBlocService.findById(id);
@@ -59,4 +66,35 @@ public class BlocRestController {
             return ResponseEntity.notFound().build();
         }
     }
+    
+    @GetMapping("/findbynom/{nomBloc}")
+    Bloc getBlocByNom(@PathVariable String nomBloc) {
+        Bloc bloc = iBlocService.getByNomBloc(nomBloc);
+
+        if (bloc != null) {
+            return bloc;
+        } else {
+            return new Bloc();
+
+        }
+    }
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
