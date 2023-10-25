@@ -1,18 +1,21 @@
 package tn.esprit.spring.RestController;
 
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.spring.DAO.Entities.Bloc;
+import tn.esprit.spring.DAO.Entities.Foyer;
 import tn.esprit.spring.Services.IBlocService;
 
 import java.util.List;
-import java.util.Optional;
+
 
 
 @RestController
 @AllArgsConstructor
 public class BlocRestController {
+    @Autowired
     IBlocService iBlocService;
 
     @GetMapping("findAllBlocs")
@@ -66,35 +69,64 @@ public class BlocRestController {
             return ResponseEntity.notFound().build();
         }
     }
-    
-    @GetMapping("/findbynom/{nomBloc}")
-    Bloc getBlocByNom(@PathVariable String nomBloc) {
-        Bloc bloc = iBlocService.getByNomBloc(nomBloc);
 
-        if (bloc != null) {
-            return bloc;
-        } else {
-            return new Bloc();
+    @GetMapping("/findByNomBloc/{nomBloc}")
+    public List<Bloc> findBlocByNom(@PathVariable String nomBloc) {
+        return iBlocService.findByNomBloc(nomBloc);
+    }
 
-        }
+    @GetMapping("/findByCapaciteBloc/{capaciteBloc}")
+    public List<Bloc> findBlocsByCapacite(@PathVariable long capaciteBloc) {
+        return iBlocService.findByCapaciteBloc(capaciteBloc);
+    }
+
+    @GetMapping("/findByNomBlocAndCapaciteBloc")
+    public List<Bloc> findBlocsByNomAndCapacite(@RequestParam String nomBloc, @RequestParam long capaciteBloc) {
+        return iBlocService.findByNomBlocAndCapaciteBloc(nomBloc, capaciteBloc);
+    }
+
+    @GetMapping("/findByNomBlocIgnoreCase/{nomBloc}")
+    public List<Bloc> findBlocByNomIgnoreCase(@PathVariable String nomBloc) {
+        return iBlocService.findByNomBlocIgnoreCase(nomBloc);
+    }
+
+    @GetMapping("/findByCapaciteBlocGreaterThan/{capacite}")
+    public List<Bloc> findBlocsByCapaciteGreaterThan(@PathVariable long capacite) {
+        return iBlocService.findByCapaciteBlocGreaterThan(capacite);
+    }
+
+    @GetMapping("/findByNomBlocContaining/{subString}")
+    public List<Bloc> findBlocByNomContaining(@PathVariable String subString) {
+        return iBlocService.findByNomBlocContaining(subString);
+    }
+
+    @GetMapping("/sortByNomBloc")
+    public List<Bloc> sortByNomBloc() {
+        return iBlocService.findAllOrderByNomBloc();
+    }
+
+    @GetMapping("/findByNomBlocOrCapaciteBloc")
+    public List<Bloc> findBlocByNomOrCapacite(@RequestParam String nomBloc, @RequestParam long capaciteBloc) {
+        return iBlocService.findByNomBlocOrCapaciteBloc(nomBloc, capaciteBloc);
+    }
+
+    @GetMapping("/findByFoyer/{foyerId}")
+    public List<Bloc> findBlocsByFoyer(@PathVariable Long foyerId) {
+        Foyer foyer = new Foyer();
+        foyer.setIdFoyer(foyerId);
+        return iBlocService.findByFoyer(foyer);
+    }
+
+    @GetMapping("/findByFoyerUniversite/{universite}")
+    public List<Bloc> findBlocByFoyerUniversite(@PathVariable String universite) {
+        return iBlocService.findByFoyerUniversite(universite);
     }
 
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
 }

@@ -35,7 +35,7 @@ public interface IChambreService {
 
     List<Chambre> findByNumChambreAndTypeC(long numChambre, TypeChambre typeC);
 
-    List<Chambre> findByBlocFoyerUniversite(String universite);
+    List<Chambre> findByFoyerUniversiteAndReservationsYearAndReservationsEtudiantNomAndNumChambre(String universite, int year, String etudiantNom, long numChambre);
 
 }
 

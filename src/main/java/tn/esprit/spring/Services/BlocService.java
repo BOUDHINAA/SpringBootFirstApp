@@ -52,24 +52,18 @@ public class BlocService implements IBlocService{
     }
 
     @Override
-    public Bloc findByNomBloc(String nomBloc) {
+    public List<Bloc> findByNomBloc(String nomBloc) {
         return blocRepository.findByNomBloc(nomBloc);
     }
 
     @Override
-    public Bloc getByNomBloc(String nomBloc) {
-        return blocRepository.getByNomBloc(nomBloc);
+    public List<Bloc> findByCapaciteBloc(long capaciteBloc) {
+        return blocRepository.findByCapaciteBloc(capaciteBloc);
     }
 
     @Override
-    public List<Bloc> findBlocByNomAndCapacite(String nomBloc, int capacite) {
-
-        return blocRepository.findByNomBlocAndCapaciteBloc(nomBloc, capacite);
-    }
-
-    @Override
-    public List<Bloc> findByCapaciteBloc(int capacite) {
-        return blocRepository.findByCapaciteBloc(capacite);
+    public List<Bloc> findByNomBlocAndCapaciteBloc(String nomBloc, long capaciteBloc) {
+        return blocRepository.findByNomBlocAndCapaciteBloc(nomBloc, capaciteBloc);
     }
 
     @Override
@@ -78,7 +72,7 @@ public class BlocService implements IBlocService{
     }
 
     @Override
-    public List<Bloc> findByCapaciteBlocGreaterThan(int capacite) {
+    public List<Bloc> findByCapaciteBlocGreaterThan(long capacite) {
         return blocRepository.findByCapaciteBlocGreaterThan(capacite);
     }
 
@@ -88,14 +82,13 @@ public class BlocService implements IBlocService{
     }
 
     @Override
-    public List<Bloc> findAllByOrderByNomBlocAsc() {
-        return blocRepository.findAllByOrderByNomBlocAsc();
+    public List<Bloc> findAllOrderByNomBloc() {
+        return blocRepository.findAllOrderByNomBloc();
     }
 
     @Override
-    public List<Bloc> findByNomBlocOrCapaciteBloc(String nomBloc, int capacite) {
-        return blocRepository.findByNomBlocOrCapaciteBloc(nomBloc,
-                capacite);
+    public List<Bloc> findByNomBlocOrCapaciteBloc(String nomBloc, long capaciteBloc) {
+        return blocRepository.findByNomBlocOrCapaciteBloc(nomBloc, capaciteBloc);
     }
 
     @Override
@@ -104,8 +97,8 @@ public class BlocService implements IBlocService{
     }
 
     @Override
-    public List<Bloc> findByFoyerUniversite(String nomUniversite) {
-        return blocRepository.findByFoyerUniversite(nomUniversite);
+    public List<Bloc> findByFoyerUniversite(String universite) {
+        return blocRepository.findByFoyerUniversite(universite);
     }
 
 

@@ -19,29 +19,32 @@ public interface IBlocService {
 
     void delete(Bloc b);
 
-    Bloc findByNomBloc(String nomBloc);
+    List<Bloc> findByNomBloc(String nomBloc);
 
-    Bloc getByNomBloc(String nomBloc);
 
-    List<Bloc> findBlocByNomAndCapacite(String nomBloc, int capacite);
+    List<Bloc> findByCapaciteBloc(long capaciteBloc);
 
-    List<Bloc> findByCapaciteBloc(int capacite);
+
+    List<Bloc> findByNomBlocAndCapaciteBloc(String nomBloc, long capaciteBloc);
+
 
     List<Bloc> findByNomBlocIgnoreCase(String nomBloc);
 
 
-    List<Bloc> findByCapaciteBlocGreaterThan(int capacite);
+    List<Bloc> findByCapaciteBlocGreaterThan(long capacite);
 
 
     List<Bloc> findByNomBlocContaining(String subString);
 
-    List<Bloc> findAllByOrderByNomBlocAsc();
+
+    List<Bloc> findAllOrderByNomBloc();
 
 
-    List<Bloc> findByNomBlocOrCapaciteBloc(String nomBloc, int capacite);
+    List<Bloc> findByNomBlocOrCapaciteBloc(String nomBloc, long capaciteBloc);
 
 
     List<Bloc> findByFoyer(Foyer foyer);
 
-    List<Bloc> findByFoyerUniversite(String nomUniversite);
+
+    List<Bloc> findByFoyerUniversite(String universite);
 }

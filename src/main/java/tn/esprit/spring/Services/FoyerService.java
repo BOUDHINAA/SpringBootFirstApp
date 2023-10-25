@@ -2,6 +2,7 @@ package tn.esprit.spring.Services;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import tn.esprit.spring.DAO.Entities.Bloc;
 import tn.esprit.spring.DAO.Entities.Foyer;
 import tn.esprit.spring.DAO.Repository.FoyerRepository;
 
@@ -46,5 +47,25 @@ public class FoyerService implements IFoyerService{
     public void delete(Foyer f) {
         foyerRepository.delete(f);
 
+    }
+
+    @Override
+    public List<Foyer> findByBloc(Bloc bloc) {
+        return foyerRepository.findByBloc(bloc);
+    }
+
+    @Override
+    public Foyer findByIdAndBloc(Long idFoyer, Bloc bloc) {
+        return foyerRepository.findByIdAndBloc(idFoyer,bloc);
+    }
+
+    @Override
+    public List<Foyer> findByCapacite(int capacite) {
+        return foyerRepository.findByCapacite(capacite);
+    }
+
+    @Override
+    public Foyer findByBlocAndUniversite(Bloc bloc, String universite) {
+        return foyerRepository.findByBlocAndUniversite(bloc, universite);
     }
 }

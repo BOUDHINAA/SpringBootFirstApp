@@ -78,7 +78,9 @@ public class ChambreService implements IChambreService{
     }
 
     @Override
-    public List<Chambre> findByBlocFoyerUniversite(String universite) {
-        return chambreRepository.findByBlocFoyerUniversite(universite);
+    public List<Chambre> findByFoyerUniversiteAndReservationsYearAndReservationsEtudiantNomAndNumChambre(String universite, int year, String etudiantNom, long numChambre) {
+        return chambreRepository.findByFoyerUniversiteAndReservationsYearAndReservationsEtudiantNomAndNumChambre(universite, year, etudiantNom, numChambre);
     }
+
+
 }
