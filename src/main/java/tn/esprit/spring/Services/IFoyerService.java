@@ -20,15 +20,5 @@ public interface IFoyerService {
 
     void delete(Foyer f);
 
-    List<Foyer> findByBloc(Bloc bloc);
-
-
-    Foyer findByIdAndBloc(Long idFoyer, Bloc bloc);
-
-
-    List<Foyer> findByCapacite(int capacite);
-
-
-    Foyer findByBlocAndUniversite(Bloc bloc, String universite);
 
 }

@@ -18,12 +18,6 @@ public interface IReservationService {
 
     void delete(Reservation r);
 
-    List<Reservation> findByValidatedTrue();
 
-
-    List<Reservation> findByEtudiantId(Long etudiantId);
-
-
-    List<Reservation> findByYearAndValidated(int year, boolean validated);
 
 }

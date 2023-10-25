@@ -46,18 +46,4 @@ public class ReservationService implements IReservationService{
         reservationRepository.delete(r);
     }
 
-    @Override
-    public List<Reservation> findByValidatedTrue() {
-        return reservationRepository.findByValidatedTrue();
-    }
-
-    @Override
-    public List<Reservation> findByEtudiantId(Long etudiantId) {
-        return reservationRepository.findByEtudiantId(etudiantId);
-    }
-
-    @Override
-    public List<Reservation> findByYearAndValidated(int year, boolean validated) {
-        return reservationRepository.findByYearAndValidated(year, validated);
-    }
 }

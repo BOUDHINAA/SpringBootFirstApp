@@ -51,36 +51,7 @@ public class ChambreService implements IChambreService{
         chambreRepository.delete(b);
     }
 
-    @Override
-    public List<Chambre> findByNumChambre(long numChambre) {
-        return chambreRepository.findByNumChambre(numChambre);
-    }
 
-    @Override
-    public List<Chambre> findByTypeC(TypeChambre typeC) {
-        return chambreRepository.findByTypeC(typeC);
-    }
-
-    @Override
-    public List<Chambre> findByBloc(Bloc bloc) {
-        return chambreRepository.findByBloc(bloc);
-    }
-
-    @Override
-    public List<Chambre> findByBlocAndTypeC(Bloc bloc, TypeChambre typeC) {
-        return chambreRepository.findByBlocAndTypeC(bloc,
-                typeC);
-    }
-
-    @Override
-    public List<Chambre> findByNumChambreAndTypeC(long numChambre, TypeChambre typeC) {
-        return chambreRepository.findByNumChambreAndTypeC(numChambre,typeC);
-    }
-
-    @Override
-    public List<Chambre> findByFoyerUniversiteAndReservationsYearAndReservationsEtudiantNomAndNumChambre(String universite, int year, String etudiantNom, long numChambre) {
-        return chambreRepository.findByFoyerUniversiteAndReservationsYearAndReservationsEtudiantNomAndNumChambre(universite, year, etudiantNom, numChambre);
-    }
 
 
 }

@@ -10,34 +10,39 @@ import java.util.List;
 @Repository
 public interface BlocRepository extends JpaRepository<Bloc,Long> {
 
+    //1- Recherche par nomBloc
     List<Bloc> findByNomBloc(String nomBloc);
 
+    //2- Recherche par capaciteBloc
+    List<Bloc> findByCapacite(long capacite);
 
-    List<Bloc> findByCapaciteBloc(long capaciteBloc);
+    //3- Recherche par nomBloc et capaciteBloc
+    List<Bloc> findByCapaciteAndNomBloc(long capacite ,String nomBloc);
 
-
-    List<Bloc> findByNomBlocAndCapaciteBloc(String nomBloc, long capaciteBloc);
-
+    //4- Recherche par nomBloc en ignorant la casse
 
     List<Bloc> findByNomBlocIgnoreCase(String nomBloc);
 
+    //5- Recherche par capaciteBloc supérieure à une valeur donnée
+    List<Bloc> findByCapaciteGreaterThan(long capacite);
 
-    List<Bloc> findByCapaciteBlocGreaterThan(long capacite);
-
-
+    //6- Recherche par nomBloc contenant une sous-chaîne
     List<Bloc> findByNomBlocContaining(String subString);
 
+    //7- Tri par nomBloc par ordre alphabétique
+    List<Bloc> findByNomBlocOrderByNomBlocAsc(String nomBloc);
 
-    List<Bloc> findAllOrderByNomBloc();
+    //8- Recherche par nomBloc ou capaciteBloc
+    List<Bloc> findByNomBlocOrCapacite(String nomBloc , long capacite);
+
+    //9- Recherche du bloc d'un foyer spécifique
+    Bloc findBlocByFoyer(Foyer foyer);
 
 
-    List<Bloc> findByNomBlocOrCapaciteBloc(String nomBloc, long capaciteBloc);
+    //10- Recherche du bloc pour un foyer d'une université donnée
 
+    //public Bloc findBlocByFoyerAndUniversity(String nomUniversite, Foyer foyer) ;
 
-    List<Bloc> findByFoyer(Foyer foyer);
-
-
-    List<Bloc> findByFoyerUniversite(String universite);
 
 
 

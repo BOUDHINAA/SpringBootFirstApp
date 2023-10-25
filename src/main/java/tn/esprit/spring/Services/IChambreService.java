@@ -25,17 +25,8 @@ public interface IChambreService {
 
     void delete(Chambre b);
 
-    List<Chambre> findByNumChambre(long numChambre);
 
-    List<Chambre> findByTypeC(TypeChambre typeC);
 
-    List<Chambre> findByBloc(Bloc bloc);
-
-    List<Chambre> findByBlocAndTypeC(Bloc bloc, TypeChambre typeC);
-
-    List<Chambre> findByNumChambreAndTypeC(long numChambre, TypeChambre typeC);
-
-    List<Chambre> findByFoyerUniversiteAndReservationsYearAndReservationsEtudiantNomAndNumChambre(String universite, int year, String etudiantNom, long numChambre);
 
 }
 

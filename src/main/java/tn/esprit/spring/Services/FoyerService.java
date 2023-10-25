@@ -49,23 +49,5 @@ public class FoyerService implements IFoyerService{
 
     }
 
-    @Override
-    public List<Foyer> findByBloc(Bloc bloc) {
-        return foyerRepository.findByBloc(bloc);
-    }
 
-    @Override
-    public Foyer findByIdAndBloc(Long idFoyer, Bloc bloc) {
-        return foyerRepository.findByIdAndBloc(idFoyer,bloc);
-    }
-
-    @Override
-    public List<Foyer> findByCapacite(int capacite) {
-        return foyerRepository.findByCapacite(capacite);
-    }
-
-    @Override
-    public Foyer findByBlocAndUniversite(Bloc bloc, String universite) {
-        return foyerRepository.findByBlocAndUniversite(bloc, universite);
-    }
 }

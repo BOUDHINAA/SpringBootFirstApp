@@ -53,17 +53,17 @@ public class BlocService implements IBlocService{
 
     @Override
     public List<Bloc> findByNomBloc(String nomBloc) {
-        return blocRepository.findByNomBloc(nomBloc);
+        return blocRepository.findByNomBloc((nomBloc));
     }
 
     @Override
-    public List<Bloc> findByCapaciteBloc(long capaciteBloc) {
-        return blocRepository.findByCapaciteBloc(capaciteBloc);
+    public List<Bloc> findByCapacite(long capacite) {
+        return blocRepository.findByCapacite(capacite);
     }
 
     @Override
-    public List<Bloc> findByNomBlocAndCapaciteBloc(String nomBloc, long capaciteBloc) {
-        return blocRepository.findByNomBlocAndCapaciteBloc(nomBloc, capaciteBloc);
+    public List<Bloc> findByCapaciteAndNomBloc(long capacite, String nomBloc) {
+        return blocRepository.findByCapaciteAndNomBloc(capacite,nomBloc);
     }
 
     @Override
@@ -72,8 +72,8 @@ public class BlocService implements IBlocService{
     }
 
     @Override
-    public List<Bloc> findByCapaciteBlocGreaterThan(long capacite) {
-        return blocRepository.findByCapaciteBlocGreaterThan(capacite);
+    public List<Bloc> findByCapaciteGreaterThan(long capacite) {
+        return blocRepository.findByCapaciteGreaterThan(capacite);
     }
 
     @Override
@@ -82,23 +82,18 @@ public class BlocService implements IBlocService{
     }
 
     @Override
-    public List<Bloc> findAllOrderByNomBloc() {
-        return blocRepository.findAllOrderByNomBloc();
+    public List<Bloc> findByNomBlocOrderByNomBlocAsc(String nomBloc) {
+        return blocRepository.findByNomBlocOrderByNomBlocAsc(nomBloc);
     }
 
     @Override
-    public List<Bloc> findByNomBlocOrCapaciteBloc(String nomBloc, long capaciteBloc) {
-        return blocRepository.findByNomBlocOrCapaciteBloc(nomBloc, capaciteBloc);
+    public List<Bloc> findByNomBlocOrCapacite(String nomBloc, long capacite) {
+        return blocRepository.findByNomBlocOrCapacite(nomBloc, capacite);
     }
 
     @Override
-    public List<Bloc> findByFoyer(Foyer foyer) {
-        return blocRepository.findByFoyer(foyer);
-    }
-
-    @Override
-    public List<Bloc> findByFoyerUniversite(String universite) {
-        return blocRepository.findByFoyerUniversite(universite);
+    public Bloc findBlocByFoyer(Foyer foyer) {
+        return blocRepository.findBlocByFoyer(foyer);
     }
 
 
