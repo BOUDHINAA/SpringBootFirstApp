@@ -11,11 +11,26 @@ import java.util.List;
 @Repository
 public interface ChambreRepository extends JpaRepository<Chambre,Long> {
 
+    //1- Recherche par numéro de chambre
     List<Chambre> findByNumChambre(long numChambre);
+
+
+    //2- Recherche par type de chambre
     List<Chambre> findByTypeC(TypeChambre typeC);
+
+
+    //3- Recherche des chambres par bloc
     List<Chambre> findByBloc(Bloc bloc);
+
+
+    //4- Recherche des chambres par bloc et type de chambre
     List<Chambre> findByBlocAndTypeC(Bloc bloc, TypeChambre typeC);
+
+
+    //5- Recherche des chambres par numéro de chambre et type de chambre
     List<Chambre> findByNumChambreAndTypeC(long numChambre, TypeChambre typeC);
 
+   // 6- Récupérer les chambres en filtrant par le nom de l'université associée au foyer, l'année de réservation et le nom de l'étudiant????
+    //List<Chambre> findBy
 
 }

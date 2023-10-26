@@ -1,6 +1,8 @@
 package tn.esprit.spring.DAO.Entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,14 +12,16 @@ import java.util.Set;
 @Entity
 @Setter
 @Getter
+@AllArgsConstructor
+@Builder
 public class Chambre {
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idChambre;
 
-@Column(name = "numeroChambre")
+@Column(name = "numeChambre")
     private long numChambre;
-@Column(name="TypeC")
+@Column(name="typeC")
     private TypeChambre typeC;
 
     @ManyToOne
@@ -25,4 +29,8 @@ public class Chambre {
 
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Reservation> reservations;
+
+    public Chambre() {
+
+    }
 }

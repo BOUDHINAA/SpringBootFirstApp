@@ -6,7 +6,6 @@ import tn.esprit.spring.DAO.Entities.Bloc;
 import tn.esprit.spring.DAO.Entities.Chambre;
 
 import java.util.List;
-import java.util.Optional;
 
 import tn.esprit.spring.DAO.Entities.TypeChambre;
 import tn.esprit.spring.DAO.Repository.ChambreRepository;
@@ -37,9 +36,10 @@ public class ChambreService implements IChambreService{
     }
 
     @Override
-    public Optional<Chambre> findById(Long id) {
-        return chambreRepository.findById(id);
+    public Chambre findById(Long id) {
+        return chambreRepository.findById(id).orElse(Chambre.builder().idChambre(0).numChambre(0).typeC(TypeChambre.SIMPLE).build());
     }
+
 
     @Override
     public void deleteById(Long id) {
@@ -51,6 +51,30 @@ public class ChambreService implements IChambreService{
         chambreRepository.delete(b);
     }
 
+    @Override
+    public List<Chambre> findByNumChambre(long numChambre) {
+        return chambreRepository.findByNumChambre(numChambre);
+    }
+
+    @Override
+    public List<Chambre> findByTypeC(TypeChambre typeC) {
+        return chambreRepository.findByTypeC(typeC);
+    }
+
+    @Override
+    public List<Chambre> findByBloc(Bloc bloc) {
+        return chambreRepository.findByBloc(bloc);
+    }
+
+    @Override
+    public List<Chambre> findByBlocAndTypeC(Bloc bloc, TypeChambre typeC) {
+        return chambreRepository.findByBlocAndTypeC(bloc, typeC);
+    }
+
+    @Override
+    public List<Chambre> findByNumChambreAndTypeC(long numChambre, TypeChambre typeC) {
+        return chambreRepository.findByNumChambreAndTypeC(numChambre, typeC);
+    }
 
 
 

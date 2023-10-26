@@ -48,6 +48,26 @@ public class SpringDocConfig {
                         "/api/blocs/findBlocByFoyer/{foyer}") //all endpoints for blocs
                 .build();
     }
+
+    @Bean
+    public GroupedOpenApi chambreApi() {
+        return GroupedOpenApi.builder()
+                .group("chambre")
+                .pathsToMatch("/api/chambres/findAllBlocs",
+                        "/api/chambres/add",
+                        "/api/chambres/edit/{id}",
+                        "/api/chambres/addchambres/{chambres}",
+                        "/api/chambres/delete/{id}",
+                        "/api/chambres/all",
+                        "/api/chambres/{id}",
+                        "/api/chambres/findByNumChambre/{numchambre}",
+                        "/api/chambres/findByTypeC/{typec}",
+                        "/api/chambres/findByBloc/{bloc}",
+                        "/api/chambres/findByBlocAndTypeC/{bloc}/{typec}",
+                        "/api/chambres/findByNumChambreAndType/{numc}/{typec}") //all endpoints for chambres
+                .build();
+
+    }
     @Bean
     public GroupedOpenApi productPublicApi() {
         return GroupedOpenApi.builder()

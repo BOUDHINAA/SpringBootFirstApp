@@ -75,7 +75,7 @@ public class BlocRestController {
         }
     }
 
-    @GetMapping("/api/blocs/findByNomBloc/{nomBloc}")
+    @GetMapping("/findByNomBloc/{nomBloc}")
     public List<Bloc> findBlocByNom(@PathVariable String nomBloc) {
         return iBlocService.findByNomBloc(nomBloc);
     }
