@@ -3,12 +3,15 @@ package tn.esprit.spring.RestController;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.spring.DAO.Entities.Bloc;
 
 import tn.esprit.spring.DAO.Entities.Foyer;
+import tn.esprit.spring.DAO.Entities.Universite;
 import tn.esprit.spring.Services.IBlocService;
 
+import java.security.PublicKey;
 import java.util.List;
 
 
@@ -17,108 +20,129 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping("/api/blocs")
 public class BlocRestController {
-    @Autowired
-    IBlocService iBlocService;
 
-    @GetMapping("findAllBlocs")
-    List<Bloc> findAll() {
-        return iBlocService.findAll();
+
+    @Autowired
+    private IBlocService blocService;
+
+    @GetMapping("/allblocs")
+    public ResponseEntity<List<Bloc>> getAllBlocs() {
+        List<Bloc> blocs = blocService.findAll();
+        return ResponseEntity.ok(blocs);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Bloc> getBlocById(@PathVariable Long id) {
+        Bloc bloc = blocService.findById(id);
+        if (bloc != null) {
+            return ResponseEntity.ok(bloc);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping("addBloc")
-    Bloc addBloc(@RequestBody Bloc b) {
-        return iBlocService.addBloc(b);
+    public ResponseEntity<Bloc> createBloc(@RequestBody Bloc bloc) {
+        Bloc createdBloc = blocService.addBloc(bloc);
+        return ResponseEntity.ok(createdBloc);
     }
 
-    @PostMapping("/addBlocs")
-    public List<Bloc> addBlocs(@RequestBody List<Bloc> blocs) {
-        return iBlocService.addBlocs(blocs);
-    }
-
-    @GetMapping("/findBlocById/{id}")
-    Bloc getBlocById(@PathVariable Long id) {
-        Bloc bloc = iBlocService.findById(id);
-
-        if (bloc != null) {
-            return bloc;
-        } else {
-            Bloc defaultBloc = new Bloc();
-            defaultBloc.setNomBloc("Introuvable");
-            defaultBloc.setCapacite(0);
-            return defaultBloc;
-        }
-    }
-    @PutMapping("/editBloc/{id}")
-
-    Bloc editBloc(@PathVariable("id") Long id, @RequestBody Bloc updatedBloc) {
-        Bloc existingBloc = iBlocService.findById(id);
-
+    @PutMapping("/editbloc/{id}")
+    public ResponseEntity<Bloc> updateBloc(@PathVariable Long id, @RequestBody Bloc bloc) {
+        Bloc existingBloc = blocService.findById(id);
         if (existingBloc != null) {
-            existingBloc.setNomBloc(updatedBloc.getNomBloc());
-            existingBloc.setCapacite(updatedBloc.getCapacite());
-            return iBlocService.editBloc(existingBloc);
+            bloc.setIdBloc(id);
+            Bloc updatedBloc = blocService.editBloc(bloc);
+            return ResponseEntity.ok(updatedBloc);
+        } else {
+            return ResponseEntity.notFound().build();
         }
-
-        Bloc defaultBloc = new Bloc();
-        defaultBloc.setNomBloc("Introuvable");
-        defaultBloc.setCapacite(0);
-
-        return defaultBloc;
     }
 
     @DeleteMapping("/deleteBloc/{id}")
-    void deleteBloc(@PathVariable Long id) {
-        Bloc existingBloc = iBlocService.findById(id);
-
+    public ResponseEntity<Void> deleteBloc(@PathVariable Long id) {
+        Bloc existingBloc = blocService.findById(id);
         if (existingBloc != null) {
-            iBlocService.deleteById(id);
+            blocService.deleteById(id);
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
         }
     }
 
-    @GetMapping("/findByNomBloc/{nomBloc}")
-    public List<Bloc> findBlocByNom(@PathVariable String nomBloc) {
-        return iBlocService.findByNomBloc(nomBloc);
+
+    @GetMapping("/byNomBloc")
+    public ResponseEntity<Bloc> findBlocsByNomBloc(@RequestParam String nomBloc) {
+        Bloc blocs = blocService.findByNomBloc(nomBloc);
+        return ResponseEntity.ok(blocs);
     }
 
-    @GetMapping("/findByCapaciteBloc/{capaciteBloc}")
-    public List<Bloc> findBlocsByCapacite(@PathVariable long capaciteBloc) {
-        return iBlocService.findByCapacite(capaciteBloc);
-    }
-
-    @GetMapping("/findByCapaciteAndNomBloc/{capaciteBloc}/{nomBloc}")
-    public List<Bloc> findBlocsByCapaciteAndNomBloc(@PathVariable long capaciteBloc,@PathVariable String nomBloc) {
-        return iBlocService.findByCapaciteAndNomBloc(capaciteBloc,nomBloc);
-    }
-
-    @GetMapping("/findByNomBlocIgnoreCase/{nomBloc}")
-    public List<Bloc> findBlocsByNomBlocIgnoreCase(@PathVariable String nomBloc) {
-        return iBlocService.findByNomBlocIgnoreCase(nomBloc);
-    }
-
-    @GetMapping("/findByCapaciteGreaterThan/{capacite}")
-    public List<Bloc> findByCapaciteGreaterThan(@PathVariable long capacite) {
-        return iBlocService.findByCapaciteGreaterThan(capacite);
-    }
-
-    @GetMapping("/findByNomBlocContaining/{subString}")
-    public List<Bloc> findByNomBlocContaining(@PathVariable String subString) {
-        return iBlocService.findByNomBlocContaining(subString);
-    }
-
-    @GetMapping("/findByNomBlocOrderByNomBlocAsc/{nomBloc}")
-    public List<Bloc> findByNomBlocOrderByNomBlocAsc(@PathVariable String nomBloc) {
-        return iBlocService.findByNomBlocOrderByNomBlocAsc(nomBloc);
-    }
-
-    @GetMapping("/findByNomBlocOrCapacite/{nomBloc}/{capacite}")
-    public List<Bloc> findByNomBlocOrCapacite(@PathVariable String nomBloc,@PathVariable long capacite) {
-        return iBlocService.findByNomBlocOrCapacite(nomBloc,capacite);
-    }
-
-    @GetMapping("/findBlocByFoyer/{foyer}")
-    public Bloc findBlocByFoyer(@PathVariable Foyer foyer) {
-        return iBlocService.findBlocByFoyer(foyer);
+    @GetMapping("/byCapaciteBloc")
+    public ResponseEntity<List<Bloc>> findBlocsByCapaciteBloc(@RequestParam long capacite) {
+        List<Bloc> blocs = blocService.findByCapacite(capacite);
+        return ResponseEntity.ok(blocs);
     }
 
 
+    @GetMapping("/byNomBlocAndCapaciteBloc")
+    public ResponseEntity<List<Bloc>> findBlocsByNomBlocAndCapaciteBloc(@RequestParam String nomBloc, @RequestParam long capacite) {
+        List<Bloc> blocs = blocService.findByCapaciteAndNomBloc(capacite, nomBloc);
+        return ResponseEntity.ok(blocs);
+    }
+
+    @GetMapping("/byNomBlocIgnoreCase")
+    public ResponseEntity<List<Bloc>> findBlocsByNomBlocIgnoreCase(@RequestParam String nomBloc) {
+        List<Bloc> blocs = blocService.findByNomBlocIgnoreCase(nomBloc);
+        return ResponseEntity.ok(blocs);
+    }
+
+    @GetMapping("/byCapaciteGreaterThan")
+    public ResponseEntity<List<Bloc>> findBlocsByCapaciteGreaterThan(@RequestParam long capacite) {
+        List<Bloc> blocs = blocService.findByCapaciteGreaterThan(capacite);
+        return ResponseEntity.ok(blocs);
+    }
+
+    @GetMapping("/byNomBlocContaining")
+    public ResponseEntity<List<Bloc>> findBlocsByNomBlocContaining(@RequestParam String subString) {
+        List<Bloc> blocs = blocService.findByNomBlocContaining(subString);
+        return ResponseEntity.ok(blocs);
+    }
+
+
+    @GetMapping("/orderByNomBlocAsc")
+    public ResponseEntity<List<Bloc>> findBlocsOrderByNomBlocAsc(String nom) {
+        List<Bloc> blocs = blocService.findByNomBlocOrderByNomBlocAsc(nom);
+        return ResponseEntity.ok(blocs);
+    }
+
+    @GetMapping("/byNomBlocOrCapaciteBloc")
+    public ResponseEntity<List<Bloc>> findBlocsByNomBlocOrCapaciteBloc(@RequestParam String nomBloc, @RequestParam long capacite) {
+        List<Bloc> blocs = blocService.findByNomBlocOrCapacite(nomBloc, capacite);
+        return ResponseEntity.ok(blocs);
+    }
+
+    @GetMapping("/byFoyer")
+    public List<Bloc> findBlocByFoyer(@RequestBody Foyer foyer) {
+        return blocService.findBlocByFoyer(foyer);
+    }
+
+    @PutMapping("/ChambresABloc")
+    public ResponseEntity<Bloc> affecterChmabreABloc(@RequestParam List<Long> numChmabres,@RequestParam String nomBloc) {
+        return ResponseEntity.ok(blocService.affecterChambresABloc(numChmabres,nomBloc));
+
+    }
+    @PutMapping("/affecterBlocAFoyer")
+    public ResponseEntity<Bloc> affecterBlocAfoyer(@RequestParam String nomBloc,@RequestParam String nomFoyer){
+        return ResponseEntity.ok(blocService.affecterBlocAFoyer(nomBloc,nomFoyer));
+    }
+
+    //affecterChambresABloc(List<Long> numChambre, String nomBloc)
+/*
+    @GetMapping("/byFoyerAndUniversite")
+    public ResponseEntity<Bloc> findBlocByFoyerAndUniversite(@RequestParam Foyer foyer, @RequestParam Universite universite) {
+        Bloc bloc = blocService.findBlocByFoyerAndUniversite(foyer, universite);
+        return ResponseEntity.ok(bloc);
+    }
+
+ */
 }

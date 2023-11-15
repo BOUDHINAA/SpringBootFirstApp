@@ -1,15 +1,11 @@
 package tn.esprit.spring.Services;
 
-
-
 import tn.esprit.spring.DAO.Entities.Bloc;
 import tn.esprit.spring.DAO.Entities.Chambre;
 import tn.esprit.spring.DAO.Entities.TypeChambre;
 
 import java.util.List;
-
-
-
+import java.util.Optional;
 
 public interface IChambreService {
 
@@ -17,18 +13,20 @@ public interface IChambreService {
     Chambre editChambre(Chambre c);
 
     List<Chambre> addChambres(List<Chambre> chambres);
-    List<Chambre> findAll();
+    List<Chambre> findAllChambres();
 
-    Chambre findById(Long id);
+    Optional<Chambre> findById(Long id);
 
     void deleteById(Long id);
 
     void delete(Chambre b);
 
 
-    List<Chambre> findByNumChambre(long numChambre);
 
 
+    Optional<Chambre> findByNumChambre(long numChambre);
+
+ /*
 
     List<Chambre> findByTypeC(TypeChambre typeC);
 
@@ -44,8 +42,8 @@ public interface IChambreService {
 
     List<Chambre> findByNumChambreAndTypeC(long numChambre, TypeChambre typeC);
 
+ */
+
 
 
 }
-
-

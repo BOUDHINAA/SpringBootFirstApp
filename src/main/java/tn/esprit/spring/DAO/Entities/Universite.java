@@ -4,13 +4,17 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
+import java.security.SecureRandomParameters;
+
 @Table(name = "Universite")
 @Entity
 @Setter
 @Getter
-public class Universite {
+public class Universite implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idUniversite")
     private long idUniversite;
 
     @Column(name = "nomUniversite")
@@ -19,7 +23,7 @@ public class Universite {
     @Column(name = "adresse")
     private String adresse;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private Universite universite;
+    @OneToOne()
+    private Foyer foyer;
 
 }

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.*;
 import java.time.LocalDate;
 
@@ -11,25 +12,23 @@ import java.time.LocalDate;
 @Entity
 @Setter
 @Getter
-public class Reservation {
+public class Reservation implements Serializable {
 @Id
+@Column(name = "idReservation")
 private String idReservation;
 
+
 @Column(name = "anneeUniversitaire")
-    private Date anneeUniversitaire;
+    private LocalDate anneeUniversitaire;
+
 @Column(name = "estValide")
     private Boolean estValide;
 
     @ManyToMany()
     private Set<Etudiant> etudiants;
-    @ManyToOne(optional = false)
+
+    @ManyToOne()
     private Chambre chambres;
 
-    public Chambre getChambres() {
-        return chambres;
-    }
 
-    public void setChambres(Chambre chambres) {
-        this.chambres = chambres;
-    }
 }

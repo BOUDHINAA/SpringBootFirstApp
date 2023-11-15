@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tn.esprit.spring.DAO.Entities.Bloc;
 import tn.esprit.spring.DAO.Entities.Foyer;
 import tn.esprit.spring.Services.IFoyerService;
 
@@ -25,17 +26,19 @@ public class FoyerRestController {
 
     @PutMapping("/edit/{id}")
     public Foyer editFoyer(@PathVariable Long id, @RequestBody Foyer updatedFoyer) {
+            updatedFoyer.setIdFoyer(id);
         return foyerService.editFoyer(updatedFoyer);
     }
 
     @GetMapping("/all")
-    public List<Foyer> findAllFoyers() {
-        return foyerService.findAll();
+    public ResponseEntity<List<Foyer>> findAll() {
+        List<Foyer> foyers = foyerService.getAll();
+        return ResponseEntity.ok(foyers);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Foyer> findFoyerById(@PathVariable Long id) {
-        Optional<Foyer> optionalFoyer = foyerService.findById(id);
+        Optional<Foyer> optionalFoyer = Optional.ofNullable(foyerService.findById(id));
 
         return optionalFoyer
                 .map(foyer -> ResponseEntity.ok().body(foyer))
@@ -44,7 +47,14 @@ public class FoyerRestController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteFoyer(@PathVariable Long id) {
-        foyerService.deleteById(id);
-        return ResponseEntity.noContent().build();
+
+        Foyer foyer=foyerService.findById(id);
+        if(foyer!=null){
+            foyerService.deleteById(id);
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
     }
+
+
 }

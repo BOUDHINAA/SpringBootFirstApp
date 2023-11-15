@@ -7,12 +7,24 @@ import tn.esprit.spring.DAO.Entities.Chambre;
 import tn.esprit.spring.DAO.Entities.TypeChambre;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ChambreRepository extends JpaRepository<Chambre,Long> {
 
+    Optional<Chambre> findByNumChambre(long numChambre);
+/*
+    List<Chambre> findByTypeC(TypeChambre typeC);
+
+    List<Chambre> findByBloc(Bloc bloc);
+
+    List<Chambre> findByBlocAndTypeC(Bloc bloc, TypeChambre typeC);
+
+    List<Chambre> findByNumChambreAndTypeC(long numChambre, TypeChambre typeC);
+
+
     //1- Recherche par numéro de chambre
-    List<Chambre> findByNumChambre(long numChambre);
+    Optional<Chambre> findByNumChambre(long numChambre);
 
 
     //2- Recherche par type de chambre
@@ -30,7 +42,7 @@ public interface ChambreRepository extends JpaRepository<Chambre,Long> {
     //5- Recherche des chambres par numéro de chambre et type de chambre
     List<Chambre> findByNumChambreAndTypeC(long numChambre, TypeChambre typeC);
 
-   // 6- Récupérer les chambres en filtrant par le nom de l'université associée au foyer, l'année de réservation et le nom de l'étudiant????
+    // 6- Récupérer les chambres en filtrant par le nom de l'université associée au foyer, l'année de réservation et le nom de l'étudiant????
     //List<Chambre> findBy
-
+*/
 }

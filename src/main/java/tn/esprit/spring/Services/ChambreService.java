@@ -1,28 +1,30 @@
 package tn.esprit.spring.Services;
 
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tn.esprit.spring.DAO.Entities.Bloc;
 import tn.esprit.spring.DAO.Entities.Chambre;
-
-import java.util.List;
-
 import tn.esprit.spring.DAO.Entities.TypeChambre;
 import tn.esprit.spring.DAO.Repository.ChambreRepository;
-@Service
-@AllArgsConstructor
-public class ChambreService implements IChambreService{
-    ChambreRepository chambreRepository;
 
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class ChambreService implements IChambreService {
+
+    @Autowired
+    private ChambreRepository chambreRepository;
 
     @Override
-    public Chambre addChambre(Chambre chambre) {
-        return chambreRepository.save(chambre);
+    public Chambre addChambre(Chambre c) {
+        return chambreRepository.save(c);
     }
 
     @Override
-    public Chambre editChambre(Chambre chambre) {
-        return chambreRepository.save(chambre);
+    public Chambre editChambre(Chambre c) {
+        return chambreRepository.save(c);
     }
 
     @Override
@@ -31,15 +33,14 @@ public class ChambreService implements IChambreService{
     }
 
     @Override
-    public List<Chambre> findAll() {
+    public List<Chambre> findAllChambres() {
         return chambreRepository.findAll();
     }
 
     @Override
-    public Chambre findById(Long id) {
-        return chambreRepository.findById(id).orElse(Chambre.builder().idChambre(0).numChambre(0).typeC(TypeChambre.SIMPLE).build());
+    public Optional<Chambre> findById(Long id) {
+        return chambreRepository.findById(id);
     }
-
 
     @Override
     public void deleteById(Long id) {
@@ -52,9 +53,10 @@ public class ChambreService implements IChambreService{
     }
 
     @Override
-    public List<Chambre> findByNumChambre(long numChambre) {
+    public Optional<Chambre> findByNumChambre(long numChambre) {
         return chambreRepository.findByNumChambre(numChambre);
     }
+    /*
 
     @Override
     public List<Chambre> findByTypeC(TypeChambre typeC) {
@@ -76,6 +78,5 @@ public class ChambreService implements IChambreService{
         return chambreRepository.findByNumChambreAndTypeC(numChambre, typeC);
     }
 
-
-
+ */
 }

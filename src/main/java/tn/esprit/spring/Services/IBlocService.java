@@ -7,10 +7,10 @@ import java.util.List;
 
 public interface IBlocService {
 
-    Bloc addBloc(Bloc b);
+    Bloc addBloc(Bloc bloc);
     Bloc editBloc(Bloc b);
 
-    List<Bloc> addBlocs(List<Bloc> blocs);
+
     List<Bloc> findAll();
 
     Bloc findById(Long id);
@@ -22,7 +22,7 @@ public interface IBlocService {
 
 
     //1- Recherche par nomBloc
-    List<Bloc> findByNomBloc(String nomBloc);
+    Bloc findByNomBloc(String nomBloc);
 
     //2- Recherche par capaciteBloc
     List<Bloc> findByCapacite(long capacite);
@@ -47,8 +47,13 @@ public interface IBlocService {
     List<Bloc> findByNomBlocOrCapacite(String nomBloc , long capacite);
 
     //9- Recherche du bloc d'un foyer spécifique
-    Bloc findBlocByFoyer(Foyer foyer);
+    List<Bloc> findBlocByFoyer(Foyer foyer);
 
+    Bloc affecterChambresABloc(List<Long> numChambre, String nomBloc) ;
 
+    Bloc affecterBlocAFoyer( String nomBloc, String nomFoyer) ;
+/*
+   // Bloc findBlocByFoyerAndUniversite(Foyer foyer, Universite universite);
 
+ */
 }

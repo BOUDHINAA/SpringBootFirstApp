@@ -4,16 +4,18 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.Set;
 
 @Table(name="Foyer")
 @Entity
 @Setter
 @Getter
-public class Foyer {
+public class Foyer implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idFoyer;
+    @Column(name = "idFoyer")
+    private long idFoyer;
 
     @Column(name = "nomFoyer")
     private String nom;
@@ -21,10 +23,10 @@ public class Foyer {
     @Column(name = "capaciteFoyer")
     private long capacite;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private Foyer foyer;
+    @OneToOne (mappedBy = "foyer")
+    private Universite universite;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "foyer")
     private Set<Bloc> blocs;
 
 }

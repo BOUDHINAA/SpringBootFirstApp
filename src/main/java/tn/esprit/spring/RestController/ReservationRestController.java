@@ -1,29 +1,55 @@
 package tn.esprit.spring.RestController;
 
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import tn.esprit.spring.DAO.Entities.Foyer;
 import tn.esprit.spring.DAO.Entities.Reservation;
 import tn.esprit.spring.Services.IReservationService;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
+@RequestMapping("/api/reservations")
 public class ReservationRestController {
 
-    IReservationService iReservationService;
 
-    @GetMapping("findAllReservations")
-    List<Reservation> findAll(){
-        return iReservationService.findAll();
-    }
+    IReservationService reservationService;
 
-    @PostMapping("/addReservation")
+
+
+    @PostMapping("/add")
     Reservation addReservation (@RequestBody Reservation r){
-        return iReservationService.addReservation(r);
+        return reservationService.addReservation(r);
     }
+    @PutMapping("/edit/{id}")
+    public Reservation editReservation(@PathVariable String id, @RequestBody Reservation updatedReservation) {
+        updatedReservation.setIdReservation(id);
+        return reservationService.editReservation(updatedReservation);
+    }
+
+    @GetMapping("/all")
+    public List<Reservation> findAllReservations() {
+        return reservationService.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public Optional<Reservation> findById(@PathVariable String id) {
+        return reservationService.findById(id);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable String id) {
+
+        Optional<Reservation> reservation=reservationService.findById(id);
+        if(reservation.isPresent()){
+            reservationService.deleteById(id);
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+
 }

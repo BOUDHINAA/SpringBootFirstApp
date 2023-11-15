@@ -4,16 +4,19 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
+import java.io.Serializable;
+import java.time.LocalDate;
+
 import java.util.Set;
 
 @Table(name = "Etudiant")
 @Entity
 @Setter
 @Getter
-public class Etudiant {
+public class Etudiant implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idEtudiant")
     private long idEtudiant;
 
     @Column(name = "nomEtudiant")
@@ -25,8 +28,8 @@ public class Etudiant {
     @Column(name = "ecole")
     private String ecole;
     @Column (name = "dateNaissance")
-    private Date dateNaissance;
+    private LocalDate dateNaissance;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "etudiants")
     private Set<Reservation> reservations;
 }

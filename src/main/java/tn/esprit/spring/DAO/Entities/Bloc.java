@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
@@ -15,23 +16,27 @@ import java.util.Set;
 @Getter
 @Builder
 @AllArgsConstructor
-public class Bloc {
+
+public class Bloc implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idBloc")
     private long idBloc;
 
     @Column(name = "nomBloc")
     private String nomBloc;
+
     @Column(name = "capaciteBloc")
     private long capacite;
 
     @ManyToOne
     private Foyer foyer;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Chambre> chambres;
+    @OneToMany(mappedBy = "bloc")
+    private Set<Chambre> chambres;
+
 
     public Bloc() {
-    }
 
+    }
 }

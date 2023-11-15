@@ -11,6 +11,7 @@ import tn.esprit.spring.DAO.Entities.TypeChambre;
 import tn.esprit.spring.Services.IChambreService;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -20,83 +21,85 @@ public class ChambreRestController {
 
 
     @Autowired
-    private IChambreService iChambreService;
-
-    @PostMapping("/add")
-    public Chambre addChambre(@RequestBody Chambre chambre) {
-        return iChambreService.addChambre(chambre);
-    }
-
-    @PutMapping("/edit/{id}")
-    public Chambre editChambre(@PathVariable("id") long id, @RequestBody Chambre updatedChambre) {
-        Chambre existingChambre=iChambreService.findById(id);
-        if (existingChambre != null) {
-            existingChambre.setNumChambre(updatedChambre.getNumChambre());
-            existingChambre.setTypeC(updatedChambre.getTypeC());
-            return iChambreService.editChambre(existingChambre);
-        }
-        Chambre defaultChambre = new Chambre();
-        defaultChambre.setNumChambre(0);
-        defaultChambre.setTypeC(TypeChambre.SIMPLE);
-
-        return defaultChambre;
-    }
-
-    @PostMapping("/addchambres/{chambres}")
-    public List<Chambre> addChambres(@PathVariable List<Chambre> chambres) {
-        return iChambreService.addChambres(chambres);
-    }
+    private IChambreService chambreService;
 
     @GetMapping("/all")
-    public List<Chambre> findAllChambres() {
-        return iChambreService.findAll();
+    public ResponseEntity<List<Chambre>> getAllChambres() {
+        List<Chambre> chambres = chambreService.findAllChambres();
+        return ResponseEntity.ok(chambres);
     }
 
     @GetMapping("/{id}")
-    public Chambre findById(@PathVariable("id") Long id) {
-        Chambre chambre = iChambreService.findById(id);
-        if (chambre != null) {
-            return chambre;
+    public ResponseEntity<Chambre> getChambreById(@PathVariable Long id) {
+        Optional<Chambre> chambre = chambreService.findById(id);
+        return chambre.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<Chambre> addChambre(@RequestBody Chambre chambre) {
+        Chambre createdChambre = chambreService.addChambre(chambre);
+        return ResponseEntity.ok(createdChambre);
+    }
+
+    @PutMapping("/editbyid/{id}")
+    public ResponseEntity<Chambre> updateChambre(@PathVariable Long id, @RequestBody Chambre chambre) {
+        Optional<Chambre> existingChambre = chambreService.findById(id);
+        if (existingChambre.isPresent()) {
+            chambre.setIdChambre(id);
+            Chambre updatedChambre = chambreService.editChambre(chambre);
+            return ResponseEntity.ok(updatedChambre);
         } else {
-            Chambre defaultchambre = new Chambre();
-            defaultchambre.setNumChambre(0);
-            defaultchambre.setIdChambre(0);
-            defaultchambre.setTypeC(TypeChambre.SIMPLE);
-            return defaultchambre;
+            return ResponseEntity.notFound().build();
         }
-
-
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteChambre(@PathVariable Long id) {
-        iChambreService.deleteById(id);
-        return ResponseEntity.noContent().build();
+        Optional<Chambre> ch=chambreService.findById(id);
+        if (ch.isPresent()) {
+            chambreService.deleteById(id);
+            return ResponseEntity.ok().build();
+        }
+        return  ResponseEntity.notFound().build();
+    }
+    /*
+
+    @GetMapping("/byNumChambre")
+    public ResponseEntity<Chambre> getChambreByNumChambre(@RequestParam long numChambre) {
+        Optional<Chambre> chambre = chambreService.findByNumChambre(numChambre);
+        return chambre.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/findByNumChambre/{numchambre}")
-    public List<Chambre> findByNumChambre(@PathVariable long numchambre){
-         return iChambreService.findByNumChambre(numchambre);
+    @GetMapping("/byTypeC")
+    public ResponseEntity<List<Chambre>> getChambresByTypeC(@RequestParam TypeChambre typeC) {
+        List<Chambre> chambres = chambreService.findByTypeC(typeC);
+        return ResponseEntity.ok(chambres);
+    }
+    @GetMapping("/byBloc")
+    public ResponseEntity<List<Chambre>> getChambresByBloc(@RequestBody Bloc bloc) {
+        List<Chambre> chambres = chambreService.findByBloc(bloc);
+        return ResponseEntity.ok(chambres);
     }
 
-    @GetMapping("/findByTypeC/{typec}")
-    public List<Chambre> findByTypeC(@PathVariable TypeChambre typec){
-        return iChambreService.findByTypeC(typec);
+
+    @GetMapping("/byBlocAndTypeC")
+    public ResponseEntity<List<Chambre>> getChambresByBlocAndTypeC(@RequestBody Bloc bloc, @RequestParam TypeChambre typeC) {
+        List<Chambre> chambres = chambreService.findByBlocAndTypeC(bloc, typeC);
+        return ResponseEntity.ok(chambres);
     }
 
-    @GetMapping("/findByBloc/{bloc}")
-    public List<Chambre> findByBloc(@PathVariable Bloc bloc){
-        return iChambreService.findByBloc(bloc);
-    }
-    @GetMapping("/findByBlocAndTypeC/{bloc}/{typec}")
-    public List<Chambre> findByBlocAndTypeC(@PathVariable Bloc bloc,@PathVariable TypeChambre typec ){
-        return iChambreService.findByBlocAndTypeC(bloc,typec);
+
+    @GetMapping("/byNumChambreAndTypeC")
+    public ResponseEntity<List<Chambre>> getChambreByNumChambreAndTypeC(@RequestParam long numChambre, @RequestParam TypeChambre typeC) {
+        List<Chambre> chambres = chambreService.findByNumChambreAndTypeC(numChambre, typeC);
+
+        if (chambres.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(chambres);
+        }
     }
 
-    @GetMapping("/findByNumChambreAndType/{numc}/{typec}")
-    public List<Chambre> findByNumChambreAndTypeC(@PathVariable long numc,@PathVariable TypeChambre typec){
-        return iChambreService.findByNumChambreAndTypeC(numc,typec);
-    }
-
+ */
 }
 
