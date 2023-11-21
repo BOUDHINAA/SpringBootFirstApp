@@ -34,6 +34,7 @@ public class Chambre{
     private Bloc bloc;
 
     @OneToMany(mappedBy = "chambre",cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Reservation> reservations = new HashSet<>();
     public Chambre() {
 

@@ -23,7 +23,7 @@ public interface IReservationService {
     void delete(Reservation r);
 
     Set<Reservation> findByEstValideTrue();
-   // List<Reservation> findByEtudiants(long idEtudiant);
+    Reservation findReservationByEtudiantId(long idEtudiant);
     //List<Reservation> findByAnneeUniversitaireAAndEstValide(LocalDate annee);
 
 

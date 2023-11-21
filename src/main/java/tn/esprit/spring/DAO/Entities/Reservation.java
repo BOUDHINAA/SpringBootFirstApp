@@ -25,9 +25,9 @@ private String idReservation;
 @Column(name = "estValide")
     private Boolean estValide;
 
-    @ManyToMany()
-    @JsonIgnore
-    private Set<Etudiant> etudiants= new HashSet<>();
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "etudiant_id")
+    private Etudiant etudiant;
     @ManyToOne
     @JsonIgnore
     private Chambre chambre;

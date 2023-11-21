@@ -57,5 +57,9 @@ public class ReservationRestController {
     public ResponseEntity<Set<Reservation>>findByEstValideTrue(){
         return ResponseEntity.ok(reservationService.findByEstValideTrue());
     }
+    @GetMapping("/findbyetudiant/{id}")
+    public ResponseEntity<Reservation> findReservationByEtudiantId(@PathVariable long id){
+        return ResponseEntity.ok(reservationService.findReservationByEtudiantId(id));
+    }
 
 }

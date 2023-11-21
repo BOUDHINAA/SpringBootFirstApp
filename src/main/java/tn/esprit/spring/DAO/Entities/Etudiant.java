@@ -1,5 +1,6 @@
 package tn.esprit.spring.DAO.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,6 +32,7 @@ public class Etudiant{
     @Column (name = "dateNaissance")
     private LocalDate dateNaissance;
 
-    @ManyToMany(mappedBy = "etudiants")
-    private Set<Reservation> reservations = new HashSet<>();
+    @OneToOne(mappedBy = "etudiant")
+    @JsonIgnore
+    private Reservation reservation;
 }

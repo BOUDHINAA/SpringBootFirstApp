@@ -3,7 +3,9 @@ package tn.esprit.spring.Services;
 import lombok.AllArgsConstructor;
 
 import org.springframework.stereotype.Service;
+import tn.esprit.spring.DAO.Entities.Etudiant;
 import tn.esprit.spring.DAO.Entities.Reservation;
+import tn.esprit.spring.DAO.Repository.EtudiantRepository;
 import tn.esprit.spring.DAO.Repository.ReservationRepository;
 
 import java.time.LocalDate;
@@ -14,6 +16,7 @@ import java.util.*;
 public class ReservationService implements IReservationService{
 
     ReservationRepository reservationRepository;
+    EtudiantRepository etudiantRepository;
     @Override
     public Reservation addReservation(Reservation r) {
         return reservationRepository.save(r);
@@ -54,34 +57,18 @@ public class ReservationService implements IReservationService{
         return reservationRepository.findByEstValideTrue();
     }
 
-
-    /* @Override
-     public List<Reservation> findByEtudiants(long idEtudiant) {
-         return null;
-     }
-
     @Override
-    public List<Reservation> findByAnneeUniversitaireAAndEstValide(LocalDate annee) {
-         List<Reservation> reservationList;
-         reservationList = reservationRepository.findAll();
+    public Reservation findReservationByEtudiantId(long idEtudiant) {
 
-         for (int i = reservationList.size() - 1; i >= 0; i--) {
-             Reservation reservation = reservationList.get(i);
-             if (reservation.getAnneeUniversitaire() != annee) {
-                 reservationList.remove(i);
-             }
-         }
-         for (int i = reservationList.size() - 1; i >= 0; i--) {
-             Reservation reservation = reservationList.get(i);
-             if (!reservation.getEstValide()) {
-                 reservationList.remove(i);
-             }
-             return reservationList;
-         }
-         return reservationList;
-     }
+        Optional<Etudiant> etudiant = etudiantRepository.findById(idEtudiant);
 
-     */
+            return reservationRepository.findReservationByEtudiant(etudiant.get());
+
+    }
+
+
+
+
 
 /*
     @Override
