@@ -12,9 +12,8 @@ import java.util.Set;
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation,String> {
 
-    Set<Reservation> findByEstValide();
-    Set<Reservation> findByEtudiants(long idEtudiant);
-    Set<Reservation> findByAnneeUniversitaireAAndEstValide(LocalDate annee,Boolean estvalide);
+    Set<Reservation> findByEstValideTrue();
+   // Set<Reservation> findByAnneeUniversitaireAndEstValide(LocalDate anneeUniversitaire);
 
 
 

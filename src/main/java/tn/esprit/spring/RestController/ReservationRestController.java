@@ -7,8 +7,10 @@ import tn.esprit.spring.DAO.Entities.Foyer;
 import tn.esprit.spring.DAO.Entities.Reservation;
 import tn.esprit.spring.Services.IReservationService;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @AllArgsConstructor
@@ -51,5 +53,9 @@ public class ReservationRestController {
         return ResponseEntity.notFound().build();
     }
 
+    @GetMapping("/estvalide")
+    public ResponseEntity<Set<Reservation>>findByEstValideTrue(){
+        return ResponseEntity.ok(reservationService.findByEstValideTrue());
+    }
 
 }

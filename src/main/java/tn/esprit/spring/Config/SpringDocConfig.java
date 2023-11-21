@@ -111,19 +111,7 @@ public class SpringDocConfig {
 
 
 
-    @Bean
-    public GroupedOpenApi reservationApi() {
-        return GroupedOpenApi.builder()
-                .group("reservation")
-                .pathsToMatch(
-                        "/api/reservations/add",
-                        "/api/reservations/edit/{id}",
-                        "/api/reservations/all",
-                        "/api/reservations/{id}",
-                        "/api/reservations/delete/{id}"
-                )
-                .build();
-    }
+
 
     @Bean
     public GroupedOpenApi universiteApi() {
@@ -137,6 +125,21 @@ public class SpringDocConfig {
                         "/api/universites/deleteById/{id}",
                         "/api/universites/affecterFoyerAUniversite/{idFoyer}/{nomUniversite}",
                         "/api/universites/desaffecterFoyerAUniversite/{idUniversite}"
+
+                )
+                .build();
+    }
+    @Bean
+    public GroupedOpenApi reservationApi() {
+        return GroupedOpenApi.builder()
+                .group("reservation")
+                .pathsToMatch(
+                        "/api/reservations/all",
+                        "/api/reservations/{id}",
+                        "/api/reservations/add",
+                        "/api/reservations/edit/{id}",
+                        "/api/reservations/delete/{id}",
+                        "/api/reservations/estvalide"
 
                 )
                 .build();

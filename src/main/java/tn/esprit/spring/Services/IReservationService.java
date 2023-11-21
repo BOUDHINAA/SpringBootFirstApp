@@ -22,9 +22,9 @@ public interface IReservationService {
 
     void delete(Reservation r);
 
-    Set<Reservation> findByEstValide();
-    Set<Reservation> findByEtudiants(long idEtudiant);
-    Set<Reservation> findByAnneeUniversitaireAAndEstValide(LocalDate annee, Boolean estvalide);
+    Set<Reservation> findByEstValideTrue();
+   // List<Reservation> findByEtudiants(long idEtudiant);
+    //List<Reservation> findByAnneeUniversitaireAAndEstValide(LocalDate annee);
 
 
 

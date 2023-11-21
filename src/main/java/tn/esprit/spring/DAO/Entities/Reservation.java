@@ -1,5 +1,6 @@
 package tn.esprit.spring.DAO.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,9 +26,10 @@ private String idReservation;
     private Boolean estValide;
 
     @ManyToMany()
+    @JsonIgnore
     private Set<Etudiant> etudiants= new HashSet<>();
-
     @ManyToOne
+    @JsonIgnore
     private Chambre chambre;
 
 

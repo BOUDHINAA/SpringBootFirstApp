@@ -1,6 +1,7 @@
 package tn.esprit.spring.Services;
 
 import lombok.AllArgsConstructor;
+
 import org.springframework.stereotype.Service;
 import tn.esprit.spring.DAO.Entities.Reservation;
 import tn.esprit.spring.DAO.Repository.ReservationRepository;
@@ -49,25 +50,39 @@ public class ReservationService implements IReservationService{
     }
 
     @Override
-    public Set<Reservation> findByEstValide() {
-       Set<Reservation> setReservation = new HashSet<Reservation>();
-        setReservation=reservationRepository.findByEstValide();
-        return setReservation;
+    public Set<Reservation> findByEstValideTrue() {
+        return reservationRepository.findByEstValideTrue();
     }
 
-    @Override
-    public Set<Reservation> findByEtudiants(long idEtudiant) {
-        Set<Reservation> setReservation = new HashSet<Reservation>();
-        setReservation = reservationRepository.findByEtudiants(idEtudiant);
-        return setReservation;
-    }
+
+    /* @Override
+     public List<Reservation> findByEtudiants(long idEtudiant) {
+         return null;
+     }
 
     @Override
-    public Set<Reservation> findByAnneeUniversitaireAAndEstValide(LocalDate annee, Boolean estvalide) {
-        Set<Reservation> setReservation = new HashSet<Reservation>();
-        setReservation=reservationRepository.findByAnneeUniversitaireAAndEstValide(annee,estvalide);
-        return setReservation;
-    }
+    public List<Reservation> findByAnneeUniversitaireAAndEstValide(LocalDate annee) {
+         List<Reservation> reservationList;
+         reservationList = reservationRepository.findAll();
+
+         for (int i = reservationList.size() - 1; i >= 0; i--) {
+             Reservation reservation = reservationList.get(i);
+             if (reservation.getAnneeUniversitaire() != annee) {
+                 reservationList.remove(i);
+             }
+         }
+         for (int i = reservationList.size() - 1; i >= 0; i--) {
+             Reservation reservation = reservationList.get(i);
+             if (!reservation.getEstValide()) {
+                 reservationList.remove(i);
+             }
+             return reservationList;
+         }
+         return reservationList;
+     }
+
+     */
+
 /*
     @Override
     public List<Reservation> findValidatedReservations() {
