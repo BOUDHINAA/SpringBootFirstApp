@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @Entity
 @Setter
 @Getter
-public class Reservation implements Serializable {
+public class Reservation{
 @Id
 @Column(name = "idReservation")
 private String idReservation;
@@ -25,10 +25,12 @@ private String idReservation;
     private Boolean estValide;
 
     @ManyToMany()
-    private Set<Etudiant> etudiants;
+    private Set<Etudiant> etudiants= new HashSet<>();
 
-    @ManyToOne()
-    private Chambre chambres;
+    @ManyToOne
+    private Chambre chambre;
+
+
 
 
 }

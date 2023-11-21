@@ -1,5 +1,6 @@
 package tn.esprit.spring.DAO.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 @Table(name = "chambre")
@@ -16,7 +18,7 @@ import java.util.Set;
 @Getter
 @AllArgsConstructor
 @Builder
-public class Chambre implements Serializable {
+public class Chambre{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idChambre")
@@ -28,10 +30,11 @@ public class Chambre implements Serializable {
     private TypeChambre typeC;
 
     @ManyToOne
+    @JsonIgnore
     private Bloc bloc;
 
-    @OneToMany()
-    private Set<Reservation> reservations;
+    @OneToMany(mappedBy = "chambre",cascade = CascadeType.ALL)
+    private Set<Reservation> reservations = new HashSet<>();
     public Chambre() {
 
     }

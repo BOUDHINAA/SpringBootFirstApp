@@ -7,13 +7,14 @@ import lombok.Setter;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Table(name = "Etudiant")
 @Entity
 @Setter
 @Getter
-public class Etudiant implements Serializable {
+public class Etudiant{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idEtudiant")
@@ -31,5 +32,5 @@ public class Etudiant implements Serializable {
     private LocalDate dateNaissance;
 
     @ManyToMany(mappedBy = "etudiants")
-    private Set<Reservation> reservations;
+    private Set<Reservation> reservations = new HashSet<>();
 }

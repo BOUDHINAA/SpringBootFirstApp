@@ -1,5 +1,6 @@
 package tn.esprit.spring.DAO.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,6 +11,8 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
+import static jakarta.persistence.CascadeType.ALL;
+
 @Table(name = "Bloc")
 @Entity
 @Setter
@@ -17,7 +20,7 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 
-public class Bloc implements Serializable{
+public class Bloc {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idBloc")
@@ -30,9 +33,10 @@ public class Bloc implements Serializable{
     private long capacite;
 
     @ManyToOne
+    @JsonIgnore
     private Foyer foyer;
 
-    @OneToMany(mappedBy = "bloc")
+    @OneToMany(mappedBy = "bloc",cascade = ALL)
     private Set<Chambre> chambres;
 
 

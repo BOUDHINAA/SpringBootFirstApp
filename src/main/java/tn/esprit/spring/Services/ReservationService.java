@@ -5,9 +5,9 @@ import org.springframework.stereotype.Service;
 import tn.esprit.spring.DAO.Entities.Reservation;
 import tn.esprit.spring.DAO.Repository.ReservationRepository;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDate;
+import java.util.*;
+
 @AllArgsConstructor
 @Service
 public class ReservationService implements IReservationService{
@@ -46,6 +46,27 @@ public class ReservationService implements IReservationService{
     @Override
     public void delete(Reservation r) {
         reservationRepository.delete(r);
+    }
+
+    @Override
+    public Set<Reservation> findByEstValide() {
+       Set<Reservation> setReservation = new HashSet<Reservation>();
+        setReservation=reservationRepository.findByEstValide();
+        return setReservation;
+    }
+
+    @Override
+    public Set<Reservation> findByEtudiants(long idEtudiant) {
+        Set<Reservation> setReservation = new HashSet<Reservation>();
+        setReservation = reservationRepository.findByEtudiants(idEtudiant);
+        return setReservation;
+    }
+
+    @Override
+    public Set<Reservation> findByAnneeUniversitaireAAndEstValide(LocalDate annee, Boolean estvalide) {
+        Set<Reservation> setReservation = new HashSet<Reservation>();
+        setReservation=reservationRepository.findByAnneeUniversitaireAAndEstValide(annee,estvalide);
+        return setReservation;
     }
 /*
     @Override

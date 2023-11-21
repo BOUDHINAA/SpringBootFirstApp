@@ -20,10 +20,11 @@ import java.util.Set;
 public class BlocService implements IBlocService{
     @Autowired
     private BlocRepository blocRepository;
-    @Autowired
     private ChambreRepository chambreRepository;
-    @Autowired
+
     private FoyerRepository foyerRepository;
+
+
 
     @Override
     public Bloc addBloc(Bloc bloc) {
@@ -113,6 +114,8 @@ public class BlocService implements IBlocService{
 
     @Override
     public Bloc affecterChambresABloc(List<Long> numChambre, String nomBloc) {
+
+
         Bloc bloc = findByNomBloc(nomBloc);
 
 

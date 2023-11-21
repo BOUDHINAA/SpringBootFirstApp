@@ -11,7 +11,7 @@ import java.security.SecureRandomParameters;
 @Entity
 @Setter
 @Getter
-public class Universite implements Serializable {
+public class Universite{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idUniversite")
@@ -23,7 +23,7 @@ public class Universite implements Serializable {
     @Column(name = "adresse")
     private String adresse;
 
-    @OneToOne()
+    @OneToOne(mappedBy = "universite",cascade = CascadeType.ALL)
     private Foyer foyer;
 
 }

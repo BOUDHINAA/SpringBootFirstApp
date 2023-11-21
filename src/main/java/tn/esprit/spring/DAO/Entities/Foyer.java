@@ -11,7 +11,7 @@ import java.util.Set;
 @Entity
 @Setter
 @Getter
-public class Foyer implements Serializable {
+public class Foyer{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idFoyer")
@@ -23,7 +23,7 @@ public class Foyer implements Serializable {
     @Column(name = "capaciteFoyer")
     private long capacite;
 
-    @OneToOne (mappedBy = "foyer")
+    @OneToOne
     private Universite universite;
 
     @OneToMany(mappedBy = "foyer")
