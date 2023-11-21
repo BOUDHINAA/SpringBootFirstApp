@@ -16,7 +16,7 @@ public interface ReservationRepository extends JpaRepository<Reservation,String>
     Set<Reservation> findByEstValideTrue();
     Reservation findReservationByEtudiant(Etudiant etudiant);
 
-
+    Set<Reservation> findReservationByAnneeUniversitaireAndAndEstValideTrue(LocalDate anne);
 
 
 

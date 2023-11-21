@@ -24,7 +24,7 @@ public interface IReservationService {
 
     Set<Reservation> findByEstValideTrue();
     Reservation findReservationByEtudiantId(long idEtudiant);
-    //List<Reservation> findByAnneeUniversitaireAAndEstValide(LocalDate annee);
+    Set<Reservation> findByAnneeUniversitaireAndEstValideTrue(LocalDate annee);
 
 
 

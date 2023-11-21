@@ -140,7 +140,8 @@ public class SpringDocConfig {
                         "/api/reservations/edit/{id}",
                         "/api/reservations/delete/{id}",
                         "/api/reservations/estvalide",
-                        "/api/reservations/findbyetudiant/{id}"
+                        "/api/reservations/findbyetudiant/{id}",
+                        "/api/reservations/anneeuniversitaireetvalide/{annee}"
 
                 )
                 .build();

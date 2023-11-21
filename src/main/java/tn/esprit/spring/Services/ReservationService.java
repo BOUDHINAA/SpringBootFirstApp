@@ -66,6 +66,11 @@ public class ReservationService implements IReservationService{
 
     }
 
+    @Override
+    public Set<Reservation> findByAnneeUniversitaireAndEstValideTrue(LocalDate annee) {
+        return reservationRepository.findReservationByAnneeUniversitaireAndAndEstValideTrue(annee);
+    }
+
 
 
 

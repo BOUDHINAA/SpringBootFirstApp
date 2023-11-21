@@ -7,6 +7,7 @@ import tn.esprit.spring.DAO.Entities.Foyer;
 import tn.esprit.spring.DAO.Entities.Reservation;
 import tn.esprit.spring.Services.IReservationService;
 
+import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -60,6 +61,10 @@ public class ReservationRestController {
     @GetMapping("/findbyetudiant/{id}")
     public ResponseEntity<Reservation> findReservationByEtudiantId(@PathVariable long id){
         return ResponseEntity.ok(reservationService.findReservationByEtudiantId(id));
+    }
+    @GetMapping("/anneeuniversitaireetvalide/{annee}")
+    public ResponseEntity<Set<Reservation>> findByAnneeUniversitaireAndEstValideTrue(@RequestParam LocalDate annee){
+        return ResponseEntity.ok(reservationService.findByAnneeUniversitaireAndEstValideTrue(annee));
     }
 
 }
